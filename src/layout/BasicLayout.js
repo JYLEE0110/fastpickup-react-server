@@ -16,7 +16,7 @@ const BasicLayout = ({children}) => {
         </button>
         <HeaderNav></HeaderNav>
       </div>
-      <div className="pt-[70px] px-3 pb-10">
+      <div className="pt-[70px] px-3 pb-10 pl-[250px]">
         {children}
       </div>
     </>
