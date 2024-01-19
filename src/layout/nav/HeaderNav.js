@@ -39,18 +39,7 @@ const HeaderNav = () => {
   // )
 
   return (
-    <div className="bg-[#ae2d33] text-white h-screen w-1/6">
-      {/* Logo */}
-      <div className="container h-[70px]">
-        <h1 className="h-[70px] text-center flex justify-center items-center">
-          <Link to={"/"} className="inline-block">
-            <img src={require("../../images/logo.png")} className="h-[53px]" alt="Logo" />
-          </Link>
-        </h1>
-        <Link to={"/member/mypage"} className="absolute right-0 top-0 w-10 h-[70px] flex justify-center items-center">
-          <img src={require("../../images/header_mypage.png")} className="h-[30px]" alt="My Page" />
-        </Link>
-      </div>
+    <div className="bg-[#ae2d33] text-white h-screen w-1/6 mt-[70px]">
 
       {/* Sidebar Menu */}
       <div className="mt-8">
