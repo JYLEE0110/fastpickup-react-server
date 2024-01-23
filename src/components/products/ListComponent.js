@@ -17,7 +17,7 @@ const initState = {
 
 const ListComponent = ({ queryObj, movePage, moveRead }) => {
 
-  const [productList, setProductList] = useState(initState);
+  const [productList, setProductList] = useState({...initState});
   const navigate = useNavigate();
 
   useEffect(() => {
