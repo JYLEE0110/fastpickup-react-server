@@ -39,7 +39,7 @@ const HeaderNav = () => {
   // )
 
   return (
-    <div className="bg-[#ae2d33] text-white h-screen w-1/6 mt-[70px]">
+    <div className="bg-[#ae2d33] text-white h-screen w-1/6 mt-[70px] ">
 
       {/* Sidebar Menu */}
       <div className="mt-8">

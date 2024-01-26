@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategoryList } from "../../api/categoryAPI";
 import { removeFile, uploadFile } from "../../api/fileAPI";
+import { registProduct } from "../../api/productAPI";
 
-const RegistComponent = () => {
+const RegistComponent = ({moveList}) => {
   const initStateCategory = {
     categoryList: [],
   };
@@ -38,11 +39,20 @@ const RegistComponent = () => {
   };
 
   const handleRegistProduct = () => {
-    // registProduct(product).then(res => {
-    //   moveList()
-    // })
+    registProduct(product)
+      .then(res => {
+        moveList();
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error('서버 응답 에러:', error.response.data);
+        } else if (error.request) {
+          console.error('요청 에러:', error.request);
+        } else {
+          console.error('일반적인 에러:', error.message);
+        }
+      });
   };
-
   const handleCancelBtn = () => {
     navigate(-1);
   };

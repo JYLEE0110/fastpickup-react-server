@@ -13,7 +13,7 @@ const ProductRouter = ({Loading}) => {
             element : <Suspense fallback = {Loading}><Product_List/></Suspense>
         },
         {
-            path : "read",
+            path : "read/:pno",
             element : <Suspense fallback = {Loading}><Product_Read/></Suspense>
         },
         {
