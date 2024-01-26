@@ -38,11 +38,12 @@ const ListComponent = ({ queryObj, movePage, moveRead }) => {
                 key={pno}
                 className="pb-3 mb-3 border-b border-[#eee]"
                 style={{ fontSize: "14px" }}
+                onClick={() => moveRead(pno)}
               >
                 <div className="flex">
                   <div className="w-[80px] h-[80px] overflow-hidden rounded-full">
                     <img
-                      src={`http://172.29.99.60/product/${imgName}`}
+                      src={`http://localhost/product/${imgName}`}
                       className="w-full h-full object-cover"
                     />
                   </div>
