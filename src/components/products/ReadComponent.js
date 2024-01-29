@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { readProduct } from "../../api/productAPI";
+import { readProduct, removeProduct } from "../../api/productAPI";
 
 const initState = {
   pno: "",
@@ -8,9 +8,10 @@ const initState = {
   productContent: "",
   imgsName: [],
   registDate: "",
+  categoryName : ""
 };
 
-const ReadComponent = ({ pno, queryObj, moveList, moveModfiy }) => {
+const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   const [product, setProduct] = useState({...initState});
 
   useEffect(() => {
@@ -21,35 +22,53 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModfiy }) => {
 
   console.log(product)
 
+  const handleRemoveProduct = (() => {
+
+    removeProduct(pno)
+      .then(res => {
+        moveList()
+        alert("상품이 정상적으로 삭제되었습니다.")
+      })
+
+  })
+
   return (
     <div className="max-w-3xl mx-auto p-6 mt-8 bg-white rounded-md shadow-md">
-      <h2 className="text-3xl font-semibold mb-4">게시글 제목</h2>
+      
+      <h2 className="text-3xl font-semibold mb-4">{product.productName}</h2>
       <p className="text-gray-600 mb-4">
-        작성자: 작성자명 | 작성일: 2024-01-28
+        카테고리 : {product.categoryName}
+      </p>
+      <p className="text-gray-600 mb-4">
+        가격 : {product.productPrice}원
       </p>
       <div className="mb-6">
         {/* 게시글 내용 */}
         <p className="text-gray-800">
-          게시글 내용이 여기에 들어갑니다. 여러 줄의 텍스트가 포함될 수
-          있습니다.
+          {product.productContent}
         </p>
       </div>
 
       {/* 첨부 파일 목록 */}
       <div className="mb-6">
         <h4 className="text-lg font-semibold mb-2">첨부 파일</h4>
-        <ul className="list-disc pl-6">
-          <li className="text-blue-500 hover:underline">
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              첨부파일1.txt
-            </a>
-          </li>
-          <li className="text-blue-500 hover:underline">
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              첨부파일2.pdf
-            </a>
-          </li>
+        {product.imgsName.length > 0 ? (
+        <ul className="overflow-x-auto overflow-y-hidden whitespace-nowrap mt-3">
+          {product.imgsName.map((fname, idx) => (
+            <li
+              key={idx}
+              className="inline-block ml-2 first:ml-0 w-[130px] h-[130px] border border-[#eee] rounded-md overflow-hidden"
+            >
+              <img
+                src={`http://localhost/product/${fname}`}
+                className="w-[130px]"
+              />
+            </li>
+          ))}
         </ul>
+      ) : (
+        <></>
+      )}
       </div>
 
       <div className="flex mt-5 justify-end">
@@ -60,11 +79,19 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModfiy }) => {
           목록
         </button>
         <button
-          className="w-20 h-10 text-white bg-[#ae2d33] rounded-md"
-          //   onClick={() => moveUpdate(review.rno)}
+          className="w-20 h-10 text-white bg-blue-700 rounded-md mr-2"
+            onClick={() => moveModify(pno)}
         >
           수정
         </button>
+
+        <button
+          className="w-20 h-10 text-white bg-[#ae2d33] rounded-md"
+            onClick={handleRemoveProduct}
+        >
+          삭제
+        </button>
+
       </div>
 
       {/* 댓글 작성 폼

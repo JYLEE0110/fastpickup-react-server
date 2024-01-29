@@ -26,5 +26,19 @@ export const readProduct = async(pno) => {
 
     const res = await axios.get(`http://localhost:8080/api/product/read/${pno}`)
     return res.data
+}
 
+// 상품 삭제
+export const removeProduct = async(pno) => {
+
+    const res = await axios.put(`http://localhost:8080/api/product/remove/${pno}`)
+    return res.data
+}
+
+
+// 상품 수정
+export const modifyProduct = async(productInfo) => {
+
+    const res = await axios.put(`http://localhost:8080/api/product/modify`,productInfo)
+    return res.data
 }
