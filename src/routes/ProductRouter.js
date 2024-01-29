@@ -21,7 +21,7 @@ const ProductRouter = ({Loading}) => {
             element : <Suspense fallback = {Loading}><Product_Regist/></Suspense>
         },
         {
-            path : "modify",
+            path : "modify/:pno",
             element : <Suspense fallback = {Loading}><Product_Modify/></Suspense>
         },
 
