@@ -1,11 +1,7 @@
-import ListComponent from "../../components/products/ListComponent";
-import ListSearchComponent from "../../components/products/ListSearchComponent";
+import ListComponent from "../../components/members/ListComponent";
 import useQueryObj from "../../hooks/useQueryObj";
 
 const ListPage = () => {
-
-  console.log("List Page.....");
-
   const { queryObj, setSearch, moveRead } = useQueryObj();
 
   console.log(useQueryObj());
@@ -29,10 +25,9 @@ const ListPage = () => {
   return (
     <div>
       <div className="py-3 text-center text-xl font-semibold leading-normal border-b border-[#ccc]">
-       등록 상품 목록
+       회원목록
       </div>
-      <ListSearchComponent queryObj={queryObj} moveSearch={moveSearch}></ListSearchComponent>
-      <ListComponent queryObj={queryObj} movePage={movePage} moveRead={moveRead} ></ListComponent>
+      <ListComponent queryObj={queryObj} movePage={movePage} moveRead={moveRead}></ListComponent>
     </div>
   );
 };
