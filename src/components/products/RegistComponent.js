@@ -72,6 +72,7 @@ const RegistComponent = ({moveList}) => {
 
     // // 새로 추가되는 파일 추가
     const arr = fileRef.current.files;
+  
     for (let file of arr) {
       formData.append("file", file);
     }
