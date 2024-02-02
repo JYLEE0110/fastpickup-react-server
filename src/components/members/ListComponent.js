@@ -29,13 +29,14 @@ const ListComponent = ({queryObj, moveRead, movePage}) => {
     },[queryObj])
 
     console.log(memberList)
+    console.log(queryObj)
 
     return ( 
 <div>
   <div className="container mx-auto my-5">
     <h1 className="text-2xl font-bold mb-3">Member List</h1>
     <ul className="mt-3 ml-6">
-      {memberList.list.map(({ memberID, memberName, joinDate }) => (
+      {memberList.list.map(({ memberID, memberName, joinDate, withDrawalStatus, withDrawalDate }) => (
         <li
           key={memberID}
           className="pb-3 mb-3 border-b border-[#eee]"
@@ -43,11 +44,14 @@ const ListComponent = ({queryObj, moveRead, movePage}) => {
           onClick={() => moveRead(memberID)}
         >
           <div className="flex items-center">
-
+          <div className={`w-3 h-3 rounded-full ${withDrawalStatus ? 'bg-red-500' : 'bg-blue-500'} mr-2`}></div>
             <div className="flex flex-col ml-2">
               <div className="text-[16px] font-medium mb-1">ID : {memberID}</div>
-              <div className="text-[14px] text-gray-500">Name : {memberName}</div>
-              <div className="text-[14px] text-gray-500">Join Date: {joinDate}</div>
+              <div className="text-[14px] text-gray-500 font-bold">Name : {memberName}</div>
+              <div className="text-[14px] text-blue-500 font-bold">Join Date:  {joinDate.slice(0, 10)}</div>
+              {withDrawalStatus && (
+                <div className="text-[14px] text-red-500 font-semibold ">Withdrawal Date: {withDrawalDate.slice(0, 10)}</div>
+              )}
             </div>
           </div>
         </li>

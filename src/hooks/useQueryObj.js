@@ -24,8 +24,9 @@ const useQueryObj = () => {
     const size = search.get("size") || 10
     const type = search.get("type")
     const keyword = search.get("keyword")
+    const withDrawalStatus = search.get("withDrawalStatus")
 
-    const queryObj = checkNull({page, size, type, keyword})
+    const queryObj = checkNull({page, size, type, keyword, withDrawalStatus})
 
     const moveList = () => {
         const queryString = createSearchParams(queryObj).toString()
