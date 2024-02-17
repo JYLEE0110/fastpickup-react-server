@@ -5,6 +5,7 @@ const Member_List = lazy(() => import("../pages/members/ListPage"))
 const Member_Regist = lazy(() => import("../pages/members/RegistPage"))
 const Member_Read = lazy(() => import("../pages/members/ReadPage"))
 const Member_Modify = lazy(() => import("../pages/members/ModifyPage"))
+const Member_MyPage = lazy(() => import("../pages/members/MyPage"))
 
 
 const MemberRouter = ({Loading}) => {
@@ -12,6 +13,10 @@ const MemberRouter = ({Loading}) => {
         {
             path : "login",
             element: <Suspense fallback = {Loading}><Member_Login/></Suspense>    
+        },
+        {
+            path : "mypage",
+            element: <Suspense fallback = {Loading}><Member_MyPage/></Suspense>    
         },
 
         {

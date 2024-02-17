@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import HeaderNav from "./nav/HeaderNav";
+import { useSelector } from "react-redux";
 
 const BasicLayout = ({ children }) => {
   const navigate = useNavigate();
+  const { memberID } = useSelector((state) => state.login);
 
   return (
     <div>
@@ -27,24 +29,44 @@ const BasicLayout = ({ children }) => {
               />
             </Link>
           </h1>
-          <Link
-            to={"/member/mypage"}
-            className="absolute right-0 top-0 w-10 h-[70px] flex justify-center items-center"
-          >
-            <img
-              src={require("../images/header_mypage.png")}
-              className="h-[30px]"
-              alt="My Page"
-            />
-          </Link>
+          {memberID ? (
+            <div className="absolute right-3 top-0 h-[70px] flex items-center">
+              <Link
+                // to={"/cart"}
+                className="mr-2"
+              >
+                <img
+                  src={require("../images/shopping-cart.png")}
+                  className="h-[30px]"
+                  alt="Cart"
+                />
+              </Link>
+              <Link to={"/member/mypage"} className="mr-2">
+                <img
+                  src={require("../images/header_mypage.png")}
+                  className="h-[30px]"
+                  alt="MyPage"
+                />
+              </Link>
+            </div>
+          ) : (
+            <Link
+              to={"/member/login"}
+              className="absolute right-0 top-0 w-10 h-[70px] flex justify-center items-center"
+            >
+              <img
+                src={require("../images/header_login.png")}
+                className="h-[30px]"
+                alt="LOGIN Page"
+              />
+            </Link>
+          )}
         </div>
       </div>
 
       <div className="flex">
         <HeaderNav></HeaderNav>
-        <div className="mt-[70px] w-full">
-          {children}
-        </div>
+        <div className="mt-[70px] w-full">{children}</div>
       </div>
     </div>
   );

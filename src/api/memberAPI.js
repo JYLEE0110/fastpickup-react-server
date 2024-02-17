@@ -24,5 +24,12 @@ export const postLogin = async(params) => {
     })
 
     return res.data
+}
+
+export const registMember = async(loginInfo) => {
+
+    const res = await axios.post(`http://localhost:8080/api/member/regist`, loginInfo)
+
+    return res.data
 
 }
