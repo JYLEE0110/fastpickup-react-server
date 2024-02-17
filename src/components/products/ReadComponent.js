@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { readProduct, removeProduct } from "../../api/productAPI";
+import { setCookie } from "../../util/cookieUtil";
 
 const initState = {
   pno: "",
@@ -11,8 +12,14 @@ const initState = {
   categoryName : ""
 };
 
+const initStateCart = {
+  pno : "",
+  quantity : ""
+}
+
 const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   const [product, setProduct] = useState({...initState});
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     readProduct(pno).then((data) => {
@@ -31,6 +38,10 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
       })
 
   })
+
+  const handleAddToCart = () => {
+    setCookie("cart", JSON.stringify(), 1)
+  }
 
   return (
     <div className="max-w-3xl mx-auto p-6 mt-8 bg-white rounded-md shadow-md">
@@ -70,7 +81,25 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
         <></>
       )}
       </div>
+      <div className="flex mt-5 justify-end">
+      <button
+          className="w-40 h-12 text-white bg-green-500 rounded-md mr-2"
+          onClick={handleAddToCart}
+        >
+          장바구니 담기
+        </button>
 
+        {/* 수량 선택 */}
+        <label className="flex items-center">
+          수량:
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10)))}
+            className="w-12 h-8 ml-2 border border-gray-300 rounded-md py-2 px-2 focus:outline-none "
+          />
+        </label>
+      </div>
       <div className="flex mt-5 justify-end">
         <button
           className="w-20 h-10 border border-[#ae2d33] rounded-md mr-2"

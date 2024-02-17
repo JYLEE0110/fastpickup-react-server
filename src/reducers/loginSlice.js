@@ -41,7 +41,7 @@ const loginSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(postLoginThunk.fulfilled, (state, action) => {
 
-            const {username, errorMsg, roleNames} = action.payload
+            const {username, errorMsg, roleNames, accessToken, refreshToken} = action.payload
 
             if(errorMsg){
                 state.errorMsg = errorMsg
@@ -74,10 +74,19 @@ export const {requestLogin} = loginSlice.actions
 // Redux는 동기적으로 작동 =>
 // ReduxThunk를 사용하여 비동기 작업처리를 도와주는 middleWare 도입
 // dispatch로 비동기 작업 수행
-export const postLoginThunk =
-    // param => API의 파라미터 값
-    createAsyncThunk('postLoginThunk', (params) => {
-        return postLogin(params)
-})
-
+export const postLoginThunk = createAsyncThunk('postLoginThunk', async (params, { rejectWithValue }) => {
+    try {
+      const response = await postLogin(params);
+      // postLogin 함수가 에러 메시지를 반환하면 프로미스를 reject합니다.
+      if (response.errorMsg) {
+        return rejectWithValue(response.errorMsg);
+      }
+      // 로그인이 성공한 경우 응답 데이터를 반환합니다.
+      return response;
+    } catch (error) {
+      // 다른 종류의 에러(예: 네트워크 문제)를 처리합니다.
+      console.error("로그인 중 에러 발생:", error);
+      throw error; // 에러를 재전파하여 catch 블록에서 캐치되도록 합니다.
+    }
+  });
 export default loginSlice.reducer
