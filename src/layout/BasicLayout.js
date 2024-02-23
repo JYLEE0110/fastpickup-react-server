@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const BasicLayout = ({ children }) => {
   const navigate = useNavigate();
   const { memberID } = useSelector((state) => state.login);
+  const { total } = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -31,15 +32,17 @@ const BasicLayout = ({ children }) => {
           </h1>
           {memberID ? (
             <div className="absolute right-3 top-0 h-[70px] flex items-center">
-              <Link
-                // to={"/cart"}
-                className="mr-2"
-              >
+              <Link to={"/cart"} className="mr-2 relative flex items-center">
                 <img
                   src={require("../images/shopping-cart.png")}
-                  className="h-[30px]"
+                  className="h-[30px] mr-1"
                   alt="Cart"
                 />
+                {total > 0 && (
+                  <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full text-xs px-2 flex items-center justify-center">
+                    {total}
+                  </span>
+                )}
               </Link>
               <Link to={"/member/mypage"} className="mr-2">
                 <img

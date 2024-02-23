@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProductList } from "../../api/productAPI";
 import ListPageComponent from "../common/ListPageComponent";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const initState = {
   list: [],
@@ -16,7 +17,7 @@ const initState = {
 };
 
 const ListComponent = ({ queryObj, movePage, moveRead }) => {
-
+  
   const [productList, setProductList] = useState({...initState});
   const navigate = useNavigate();
 

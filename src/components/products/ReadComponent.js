@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { readProduct, removeProduct } from "../../api/productAPI";
 import { setCookie } from "../../util/cookieUtil";
+import { addCart } from "../../api/cartAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartListThunk } from "../../reducers/cartSlice";
+
 
 const initState = {
   pno: "",
@@ -12,14 +16,17 @@ const initState = {
   categoryName : ""
 };
 
-const initStateCart = {
-  pno : "",
-  quantity : ""
-}
-
 const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
+
+  const {memberID} = useSelector(state => state.login)
+
+  console.log(memberID)
+  // console.log(total)
+
+  const dispatch = useDispatch()
   const [product, setProduct] = useState({...initState});
   const [quantity, setQuantity] = useState(1);
+
 
   useEffect(() => {
     readProduct(pno).then((data) => {
@@ -40,8 +47,25 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   })
 
   const handleAddToCart = () => {
-    setCookie("cart", JSON.stringify(), 1)
+    
+    const cart = {
+      shoppingCartDTO: {
+        memberID: memberID
+      },
+      cartProductDTO: {
+        pno : product.pno,
+        quantity : quantity
+      }
+    }
+
+    addCart(cart)
+      .then(res => {
+        alert("장바구니에 담겼습니다")
+      }).then(() =>
+        dispatch(getCartListThunk(memberID))
+      )
   }
+
 
   return (
     <div className="max-w-3xl mx-auto p-6 mt-8 bg-white rounded-md shadow-md">
