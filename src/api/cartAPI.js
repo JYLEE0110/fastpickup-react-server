@@ -1,4 +1,5 @@
 import axios from "axios"
+import { createSearchParams } from "react-router-dom"
 
 // 장바구니 추가
 export const addCart = async(params) => {
@@ -8,8 +9,10 @@ export const addCart = async(params) => {
 }
 
 // 장바구니 목록
-export const getCartList = async(memberID) => {
+export const getCartList = async(memberID, queryObj) => {
 
-    const res = await axios.get(`http://localhost:8080/api/cart/list/${memberID}`)
+    const queryString = createSearchParams(queryObj).toString()
+
+    const res = await axios.get(`http://localhost:8080/api/cart/list/${memberID}?${queryString}`)
     return res.data
 }
