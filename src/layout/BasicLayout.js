@@ -32,7 +32,7 @@ const BasicLayout = ({ children }) => {
           </h1>
           {memberID ? (
             <div className="absolute right-3 top-0 h-[70px] flex items-center">
-              <Link to={"/cart"} className="mr-2 relative flex items-center">
+              <Link to={"/cart/list"} className="mr-2 relative flex items-center">
                 <img
                   src={require("../images/shopping-cart.png")}
                   className="h-[30px] mr-1"
