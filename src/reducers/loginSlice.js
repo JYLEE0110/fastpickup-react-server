@@ -34,6 +34,7 @@ const loginSlice = createSlice({
 
         requestLogout : (state) => {
             removeCookie('login')
+            removeCookie('cart')
 
             return initState
         }

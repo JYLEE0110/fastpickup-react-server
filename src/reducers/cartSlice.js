@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCartList } from "../api/cartAPI";
+import { getCookie, setCookie } from "../util/cookieUtil";
 
 
 export const getCartListThunk = createAsyncThunk('getCartListThunk', async(memberID) => {
@@ -14,12 +15,23 @@ const initState = {
     total : ""
 }
 
+const loadCookie = () => {
+    const cartObj = getCookie("cart")
+
+    if(!cartObj) {
+        return initState
+    }
+    return cartObj
+}
+
 const cartSlice = createSlice({
     name : 'cartSlice',
-    initialState : initState,
+    initialState : loadCookie(),
     extraReducers : (builder) => {
         builder.addCase(getCartListThunk.fulfilled,(state, action) => {
             
+            setCookie("cart", JSON.stringify(action.payload), 1)
+
             return action.payload
             
         })

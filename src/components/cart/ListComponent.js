@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getCartList } from "../../api/cartAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartList, removeCartItem } from "../../api/cartAPI";
 import ListPageComponent from "../common/ListPageComponent";
+import { getCartListThunk } from "../../reducers/cartSlice";
 
 const initState = {
   list: [],
@@ -21,10 +22,16 @@ const ListComponent = ({ movePage, queryObj }) => {
   const [cartList, setCartList] = useState({ ...initState });
   const [quantities, setQuantities] = useState({});
 
+  const dispatch = useDispatch()
+
+  const cart = useSelector((state) => state.cart);
+
   useEffect(() => {
     getCartList(memberID,queryObj).then((data) => {
       setCartList(data);
 
+      // 반환된 리스트 데이터에서 cno, 수량을 순회하며 뽑아낸 뒤
+      // 초기값 cno : 수량 으로 set해준다.
       const initialQuantities = {};
       data.list.forEach(({ cno, quantity }) => {
         initialQuantities[cno] = quantity;
@@ -33,6 +40,9 @@ const ListComponent = ({ movePage, queryObj }) => {
     });
   }, [memberID,queryObj]);
 
+  console.log(cartList)
+
+  // 상품 수량 변경
   const handleQuantityChange = (cno, newQuantity) => {
     newQuantity = Math.max(1, parseInt(newQuantity, 10));
     setQuantities((prevQuantities) => ({
@@ -40,7 +50,18 @@ const ListComponent = ({ movePage, queryObj }) => {
       [cno]: newQuantity,
     }));
   };
+  const handleRemoveCartItem = (cno) => {
 
+    const newList = cartList.list.filter((ele) => ele.cno !== cno);
+
+    setCartList({ ...cartList, list:newList });
+
+    removeCartItem(cno).then(()=>{
+      dispatch(getCartListThunk(memberID))
+    })
+
+  }
+  
   const handleOrderClick = () => {
 
   }
@@ -93,7 +114,7 @@ const ListComponent = ({ movePage, queryObj }) => {
                 {(productPrice * (quantities[cno] || 1)).toLocaleString()} 원
               </p>
               <button
-                // onClick={() => handleRemoveItem(cno)}
+                onClick={() => handleRemoveCartItem(cno)}
                 className="text-red-500 focus:outline-none"
               >
                 X

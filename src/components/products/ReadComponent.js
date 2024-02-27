@@ -4,6 +4,7 @@ import { setCookie } from "../../util/cookieUtil";
 import { addCart } from "../../api/cartAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartListThunk } from "../../reducers/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const initState = {
@@ -19,6 +20,7 @@ const initState = {
 const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
 
   const {memberID} = useSelector(state => state.login)
+  const navigate = useNavigate()
 
   console.log(memberID)
   // console.log(total)
@@ -63,7 +65,11 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
         alert("장바구니에 담겼습니다")
       }).then(() =>
         dispatch(getCartListThunk(memberID))
-      )
+      ).catch(() => {
+        console.error("로그인 후 사용해주세요")
+        alert("로그인 후 사용해주세요")
+        navigate("/member/login")
+      })
   }
 
 

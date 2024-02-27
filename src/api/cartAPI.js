@@ -16,3 +16,12 @@ export const getCartList = async(memberID, queryObj) => {
     const res = await axios.get(`http://localhost:8080/api/cart/list/${memberID}?${queryString}`)
     return res.data
 }
+
+// 장바구니 아이템 삭제
+export const removeCartItem = async(cno) => {
+
+    const res = await axios.delete(`http://localhost:8080/api/cart/remove/${cno}`)
+
+    return res.data
+
+}
