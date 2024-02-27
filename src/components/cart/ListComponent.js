@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartList, removeCartItem } from "../../api/cartAPI";
 import ListPageComponent from "../common/ListPageComponent";
 import { getCartListThunk } from "../../reducers/cartSlice";
+import { order } from "../../api/orderAPI";
 
 const initState = {
   list: [],
@@ -63,6 +64,22 @@ const ListComponent = ({ movePage, queryObj }) => {
   }
   
   const handleOrderClick = () => {
+    const orderProducts = cartList.list.map(item => ({
+      pno: item.pno,
+      quantity: quantities[item.cno] 
+    }));
+  
+    const createOrderDTO = {
+      memberID: memberID,
+      orderProducts: orderProducts,
+    }
+
+    console.log(createOrderDTO)
+    order(createOrderDTO).then(() => {
+      console.log("주문이 정상적으로")
+    }).then(() => {
+      // 모든 장바구니 삭제 구현할 것
+    })
 
   }
 

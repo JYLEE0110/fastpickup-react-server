@@ -60,6 +60,8 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
       }
     }
 
+    console.log(cart)
+
     addCart(cart)
       .then(res => {
         alert("장바구니에 담겼습니다")
