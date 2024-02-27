@@ -1,11 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import HeaderNav from "./nav/HeaderNav";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCookie, setCookie } from "../util/cookieUtil";
 
 const BasicLayout = ({ children }) => {
   const navigate = useNavigate();
   const { memberID } = useSelector((state) => state.login);
-  const { total } = useSelector((state) => state.cart);
+  const list = useSelector((state) => state.cart);
+
+  useEffect(() => {
+
+    setCookie("cart", JSON.stringify(list), 1)
+
+  },[list])
 
   return (
     <div>
@@ -22,7 +30,7 @@ const BasicLayout = ({ children }) => {
         {/* Logo */}
         <div className="container h-[70px]">
           <h1 className="h-[70px] text-center flex justify-center items-center">
-            <Link to={"/"} className="inline-block">
+            <Link to={"/product/list"} className="inline-block">
               <img
                 src={require("../images/logo.png")}
                 className="h-[53px]"
@@ -38,9 +46,9 @@ const BasicLayout = ({ children }) => {
                   className="h-[30px] mr-1"
                   alt="Cart"
                 />
-                {total > 0 && (
+                {list.total > 0 && (
                   <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full text-xs px-2 flex items-center justify-center">
-                    {total}
+                    {list.total}
                   </span>
                 )}
               </Link>
