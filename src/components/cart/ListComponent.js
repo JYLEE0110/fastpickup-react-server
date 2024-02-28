@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartList, removeCartItem } from "../../api/cartAPI";
+import { getCartList, removeAllItem, removeCartItem } from "../../api/cartAPI";
 import ListPageComponent from "../common/ListPageComponent";
 import { getCartListThunk } from "../../reducers/cartSlice";
 import { order } from "../../api/orderAPI";
@@ -23,12 +23,10 @@ const ListComponent = ({ movePage, queryObj }) => {
   const [cartList, setCartList] = useState({ ...initState });
   const [quantities, setQuantities] = useState({});
 
-  const dispatch = useDispatch()
-
-  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getCartList(memberID,queryObj).then((data) => {
+    getCartList(memberID, queryObj).then((data) => {
       setCartList(data);
 
       // 반환된 리스트 데이터에서 cno, 수량을 순회하며 뽑아낸 뒤
@@ -39,9 +37,9 @@ const ListComponent = ({ movePage, queryObj }) => {
       });
       setQuantities(initialQuantities);
     });
-  }, [memberID,queryObj]);
+  }, [memberID, queryObj]);
 
-  console.log(cartList)
+  console.log(cartList);
 
   // 상품 수량 변경
   const handleQuantityChange = (cno, newQuantity) => {
@@ -52,36 +50,48 @@ const ListComponent = ({ movePage, queryObj }) => {
     }));
   };
   const handleRemoveCartItem = (cno) => {
-
     const newList = cartList.list.filter((ele) => ele.cno !== cno);
 
-    setCartList({ ...cartList, list:newList });
+    setCartList({ ...cartList, list: newList });
 
-    removeCartItem(cno).then(()=>{
-      dispatch(getCartListThunk(memberID))
-    })
+    removeCartItem(cno).then(() => {
+      dispatch(getCartListThunk(memberID));
+    });
+  };
 
-  }
-  
+  const handelRemoveAllItem = (memberID) => {
+    removeAllItem(memberID)
+      .then(() => {
+        setCartList({ ...initState });
+
+        alert("장바구니를 비웠습니다.");
+      })
+      .then(() => {
+        dispatch(getCartListThunk(memberID));
+      });
+  };
+
   const handleOrderClick = () => {
-    const orderProducts = cartList.list.map(item => ({
+    const orderProducts = cartList.list.map((item) => ({
       pno: item.pno,
-      quantity: quantities[item.cno] 
+      quantity: quantities[item.cno],
     }));
-  
+
     const createOrderDTO = {
       memberID: memberID,
       orderProducts: orderProducts,
-    }
+    };
 
-    console.log(createOrderDTO)
-    order(createOrderDTO).then(() => {
-      console.log("주문이 정상적으로")
-    }).then(() => {
-      // 모든 장바구니 삭제 구현할 것
-    })
-
-  }
+    console.log(createOrderDTO);
+    order(createOrderDTO)
+      .then(() => {
+        alert("주문이 정상적으로 이루어졌습니다");
+      })
+      .then(() => {
+        setCartList({...initState})
+        dispatch(getCartListThunk(memberID));
+      });
+  };
 
   // 전체 총액 계산
   const totalAmount = cartList.list
@@ -93,15 +103,29 @@ const ListComponent = ({ movePage, queryObj }) => {
 
   return (
     <div className="container mx-auto my-5">
-      <div className="flex items-center justify-between">
-      <h1 className="text-2xl font-bold mb-3">총액 : {totalAmount} 원</h1>
-      <button
-        onClick={handleOrderClick}
-        className="bg-blue-700 text-white px-4 py-2 rounded mt-4 focus:outline-none"
-      >
-        주문하기
-      </button>
-      </div>
+      {cartList.list.length > 0 ? (
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold mb-3">총액 : {totalAmount} 원</h1>
+          <div className="flex space-x-4">
+            <button
+              onClick={handleOrderClick}
+              className="bg-blue-700 text-white px-4 py-2 rounded mt-4 focus:outline-none"
+            >
+              주문하기
+            </button>
+            <button
+              onClick={() => handelRemoveAllItem(memberID)}
+              className="bg-red-700 text-white px-4 py-2 rounded mt-4 focus:outline-none"
+            >
+              장바구니 비우기
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p className="text-gray-500 text-2xl text-center">
+          장바구니가 비어있습니다.
+        </p>
+      )}
       <ul className="space-y-4">
         {cartList.list.map(({ cno, productName, productPrice, imgName }) => (
           <li
