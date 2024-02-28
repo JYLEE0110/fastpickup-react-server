@@ -45,7 +45,7 @@ const HeaderNav = () => {
       <div className="mt-8">
         <Link to={"/dashboard"} className="block px-4 py-2 hover:bg-gray-700">대시보드</Link>
         <Link to={"/product/list"} className="block px-4 py-2 hover:bg-gray-700">상품 목록</Link>
-        <Link to={"/orders"} className="block px-4 py-2 hover:bg-gray-700">주문 목록</Link>
+        <Link to={"/order/list"} className="block px-4 py-2 hover:bg-gray-700">주문 목록</Link>
         <Link to={"/member/list"} className="block px-4 py-2 hover:bg-gray-700">고객 목록</Link>
         <Link to={"/settings"} className="block px-4 py-2 hover:bg-gray-700">설정</Link>
       </div>

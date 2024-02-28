@@ -4,6 +4,7 @@ import {createBrowserRouter } from "react-router-dom";
 import MemberRouter from "./MemberRouter";
 import ProductRouter from "./ProductRouter";
 import CartRouter from "./CartRouter";
+import OrderRouter from "./OrderRouter";
 
 const Loading = <LoadingPage/>
 
@@ -15,6 +16,9 @@ const Product_index = lazy(() => import("../pages/products/IndexPage"))
 
 //장바구니
 const Cart_index = lazy(() => import("../pages/cart/IndexPage"))
+
+//주문
+const Order_index = lazy(() => import("../pages/order/IndexPage"))
 
 const router = createBrowserRouter([
 
@@ -32,6 +36,10 @@ const router = createBrowserRouter([
         path : "cart",
         element: <Suspense fallback = {Loading}><Cart_index/></Suspense>,
         children: CartRouter(Loading)
+    },{
+        path : "order",
+        element: <Suspense fallback = {Loading}><Order_index/></Suspense>,
+        children: OrderRouter(Loading)
     }
 ])
 
