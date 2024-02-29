@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { readOrderInfo } from "../../api/orderAPI";
+import { readOrderInfo,modifyOrderStatus } from "../../api/orderAPI";
 
 const initState = {
   memberID: "",
@@ -8,8 +8,8 @@ const initState = {
   orderProduct: [],
   orderStatus: "",
 };
-
 const ReadComponent = ({ ono, queryObj, moveList }) => {
+
   const [orderInfo, setOrderInfo] = useState({ ...initState });
 
   useEffect(() => {
@@ -19,6 +19,36 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
   }, [ono]);
 
   console.log(orderInfo);
+
+  const handleStatusChange = async(newStatus) => {
+    try {
+          const updatedOrderInfo = { ...orderInfo, orderStatus: newStatus };
+          setOrderInfo(updatedOrderInfo);
+
+          const result = await modifyOrderStatus({ ono: orderInfo.ono, orderStatus: newStatus });
+
+          alert(`주문이 ${newStatus} 되었습니다.`)
+
+      console.log(result); // 서버 응답 확인
+
+      // TODO: 상태 변경 후 필요한 동작 수행
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  const getStatusColor = () => {
+    switch (orderInfo.orderStatus) {
+      case "접수":
+        return "text-blue-700";
+      case "완료":
+        return "text-green-600";
+      case "반려":
+        return "text-red-600";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
@@ -33,7 +63,10 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
         <strong>주문 일자:</strong> {orderInfo.orderDate}
       </div>
       <div className="mb-4">
-        <strong>주문 상태:</strong> {orderInfo.orderStatus}
+      <strong>주문 상태:</strong>{" "}
+        <span className={`font-bold ${getStatusColor()}`}>
+          {orderInfo.orderStatus}
+        </span>
       </div>
       <div className="mb-4">
         <strong>주문 제품:</strong>
@@ -53,6 +86,30 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
           ))}
         </ul>
       </div>
+
+      <div className="mb-4">
+        <div className="flex mt-2 justify-end">
+          <button
+            onClick={() => handleStatusChange("접수")}
+            className="mr-2 bg-blue-700 text-white px-4 py-2 rounded"
+          >
+            접수
+          </button>
+          <button
+            onClick={() => handleStatusChange("완료")}
+            className="mr-2 bg-green-500 text-white px-4 py-2 rounded"
+          >
+            완료
+          </button>
+          <button
+            onClick={() => handleStatusChange("반려")}
+            className="bg-red-600 text-white px-4 py-2 rounded"
+          >
+            반려
+          </button>
+        </div>
+
+    </div>
     </div>
   );
 };

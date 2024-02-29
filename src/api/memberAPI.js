@@ -1,11 +1,13 @@
 import axios from "axios"
 import { createSearchParams } from "react-router-dom"
+import jwtAxios from "../util/jwtUtil"
 
 export const getMemberList = async(queryObj) => {
     
     // 
     const queryString = createSearchParams(queryObj).toString()
 
+    // const res = await jwtAxios.get(`http://localhost:8080/api/member/list?${queryString}`)
     const res = await axios.get(`http://localhost:8080/api/member/list?${queryString}`)
     return res.data
 
