@@ -23,7 +23,7 @@ const ListComponent = ({ queryObj, moveRead, movePage }) => {
   useEffect(() => {
     getMemberList(queryObj).then((data) => {
       setMemberList(data);
-    });
+    })
   }, [queryObj]);
 
   const handleReactiveBtn = (memberID) => {

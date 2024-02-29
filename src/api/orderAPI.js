@@ -25,3 +25,11 @@ export const readOrderInfo = async(ono) => {
 
     return res.data
 }
+
+// 주문상태 변경
+export const modifyOrderStatus = async(params) => {
+
+    const res = await axios.post(`http://localhost:8080/api/order/modify/status`,params)
+
+    return res.data
+}

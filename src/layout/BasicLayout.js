@@ -39,7 +39,7 @@ const BasicLayout = ({ children }) => {
             </Link>
           </h1>
           {memberID ? (
-            <div className="absolute right-3 top-0 h-[70px] flex items-center">
+            <div className="absolute right-10 top-0 h-[70px] flex items-center">
               <Link to={"/cart/list"} className="mr-2 relative flex items-center">
                 <img
                   src={require("../images/shopping-cart.png")}
@@ -58,7 +58,9 @@ const BasicLayout = ({ children }) => {
                   className="h-[30px]"
                   alt="MyPage"
                 />
+                
               </Link>
+              <span className="text-white ml-1">{memberID}님</span>
             </div>
           ) : (
             <Link
