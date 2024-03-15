@@ -13,7 +13,7 @@ const BasicLayout = ({ children }) => {
 
     setCookie("cart", JSON.stringify(list), 1)
 
-  },[list])
+  },[list,list.total])
 
   return (
     <div>
@@ -78,7 +78,7 @@ const BasicLayout = ({ children }) => {
       </div>
 
       <div className="flex">
-        <HeaderNav></HeaderNav>
+        <HeaderNav className="flex-grow"></HeaderNav>
         <div className="mt-[70px] w-full">{children}</div>
       </div>
     </div>
