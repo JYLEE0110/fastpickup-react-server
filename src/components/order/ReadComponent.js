@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { readOrderInfo,modifyOrderStatus } from "../../api/orderAPI";
+import { readOrderInfo, modifyOrderStatus } from "../../api/orderAPI";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   memberID: "",
@@ -8,9 +9,11 @@ const initState = {
   orderProduct: [],
   orderStatus: "",
 };
-const ReadComponent = ({ ono, queryObj, moveList }) => {
 
+const ReadComponent = ({ ono, queryObj, moveList }) => {
   const [orderInfo, setOrderInfo] = useState({ ...initState });
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     readOrderInfo(ono).then((data) => {
@@ -18,16 +21,17 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
     });
   }, [ono]);
 
-  console.log(orderInfo);
-
-  const handleStatusChange = async(newStatus) => {
+  const handleStatusChange = async (newStatus) => {
     try {
-          const updatedOrderInfo = { ...orderInfo, orderStatus: newStatus };
-          setOrderInfo(updatedOrderInfo);
+      const updatedOrderInfo = { ...orderInfo, orderStatus: newStatus };
+      setOrderInfo(updatedOrderInfo);
 
-          const result = await modifyOrderStatus({ ono: orderInfo.ono, orderStatus: newStatus });
+      const result = await modifyOrderStatus({
+        ono: orderInfo.ono,
+        orderStatus: newStatus,
+      });
 
-          alert(`주문이 ${newStatus} 되었습니다.`)
+      alert(`주문이 ${newStatus} 되었습니다.`);
 
       console.log(result); // 서버 응답 확인
 
@@ -35,14 +39,20 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  const handleRegistBtn = (pno) =>{
+
+    navigate(`/review/regist/${pno}`)
+
   }
 
   const getStatusColor = () => {
     switch (orderInfo.orderStatus) {
       case "접수":
-        return "text-blue-700";
+        return "text-green-500";
       case "완료":
-        return "text-green-600";
+        return "text-blue-700";
       case "반려":
         return "text-red-600";
       default:
@@ -63,7 +73,7 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
         <strong>주문 일자:</strong> {orderInfo.orderDate}
       </div>
       <div className="mb-4">
-      <strong>주문 상태:</strong>{" "}
+        <strong>주문 상태:</strong>{" "}
         <span className={`font-bold ${getStatusColor()}`}>
           {orderInfo.orderStatus}
         </span>
@@ -72,14 +82,23 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
         <strong>주문 제품:</strong>
         <ul className="list-disc ml-6">
           {orderInfo.orderProduct.map((product, index) => (
-            <li key={index} className="flex items-center space-x-4">
+            <li key={index} className="flex items-center space-x-4 mb-3 mt-3">
               <img
                 src={`http://localhost/product/${product.imgName}`}
                 alt={product.productName}
                 className="w-24 h-24 object-cover rounded"
               />
-              <div>
-                <div className="font-bold">{product.productName}</div>
+              <div className="flex flex-col w-full">
+                <div className="flex justify-between items-center">
+                  <div className="font-bold">{product.productName}</div>
+                  {orderInfo.orderStatus === "완료" && (
+                    <button 
+                      className="bg-blue-700 text-white px-4 py-2 rounded mr-10"
+                      onClick={() => handleRegistBtn(product.pno)}>
+                      리뷰쓰기
+                    </button>
+                  )}
+                </div>
                 <div>수량: {product.quantity}</div>
               </div>
             </li>
@@ -91,13 +110,13 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
         <div className="flex mt-2 justify-end">
           <button
             onClick={() => handleStatusChange("접수")}
-            className="mr-2 bg-blue-700 text-white px-4 py-2 rounded"
+            className="mr-2 bg-green-500 text-white px-4 py-2 rounded"
           >
             접수
           </button>
           <button
             onClick={() => handleStatusChange("완료")}
-            className="mr-2 bg-green-500 text-white px-4 py-2 rounded"
+            className="mr-2 bg-blue-700 text-white px-4 py-2 rounded"
           >
             완료
           </button>
@@ -108,8 +127,7 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
             반려
           </button>
         </div>
-
-    </div>
+      </div>
     </div>
   );
 };

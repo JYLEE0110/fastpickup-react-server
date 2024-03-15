@@ -5,6 +5,7 @@ import MemberRouter from "./MemberRouter";
 import ProductRouter from "./ProductRouter";
 import CartRouter from "./CartRouter";
 import OrderRouter from "./OrderRouter";
+import ReviewRouter from "./ReviewRouter";
 
 const Loading = <LoadingPage/>
 
@@ -19,6 +20,9 @@ const Cart_index = lazy(() => import("../pages/cart/IndexPage"))
 
 //주문
 const Order_index = lazy(() => import("../pages/order/IndexPage"))
+
+//리뷰
+const Review_index = lazy(() => import("../pages/review/IndexPage"))
 
 const router = createBrowserRouter([
 
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
         path : "order",
         element: <Suspense fallback = {Loading}><Order_index/></Suspense>,
         children: OrderRouter(Loading)
+    },{
+        path : "review",
+        element: <Suspense fallback = {Loading}><Review_index/></Suspense>,
+        children: ReviewRouter(Loading)
     }
 ])
 
