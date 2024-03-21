@@ -16,7 +16,7 @@ const BasicLayout = ({ children }) => {
   },[list,list.total])
 
   return (
-    <div>
+    <div style={{ overflowY: 'auto' }}> {/* 이 부분 수정 */}
       <div className="fixed w-full h-[70px] bg-[#ae2d33] shadow-lg">
         <button
           onClick={() => navigate(-1)}
@@ -77,7 +77,7 @@ const BasicLayout = ({ children }) => {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex h-screen">
         <HeaderNav className="flex-grow"></HeaderNav>
         <div className="mt-[70px] w-full">{children}</div>
       </div>
