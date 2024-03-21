@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategoryList } from "../../api/categoryAPI";
-import { removeFile, uploadFile } from "../../api/fileAPI";
+import { productRemoveFile, productUploadFile } from "../../api/fileAPI";
 import { registProduct } from "../../api/productAPI";
 
-const RegistComponent = ({moveList}) => {
+const RegistComponent = ({ moveList }) => {
   const initStateCategory = {
     categoryList: [],
   };
@@ -40,16 +40,16 @@ const RegistComponent = ({moveList}) => {
 
   const handleRegistProduct = () => {
     registProduct(product)
-      .then(res => {
+      .then((res) => {
         moveList();
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
-          console.error('서버 응답 에러:', error.response.data);
+          console.error("서버 응답 에러:", error.response.data);
         } else if (error.request) {
-          console.error('요청 에러:', error.request);
+          console.error("요청 에러:", error.request);
         } else {
-          console.error('일반적인 에러:', error.message);
+          console.error("일반적인 에러:", error.message);
         }
       });
   };
@@ -64,15 +64,15 @@ const RegistComponent = ({moveList}) => {
 
     setProduct({ ...product });
 
-    removeFile(fname)
+    productRemoveFile(fname);
   };
 
-  const handleChangeFile = () => {
+  const handleFileUpload = () => {
     const formData = new FormData();
 
     // // 새로 추가되는 파일 추가
     const arr = fileRef.current.files;
-  
+
     for (let file of arr) {
       formData.append("file", file);
     }
@@ -80,16 +80,16 @@ const RegistComponent = ({moveList}) => {
     console.dir(fileRef.current);
 
     // uploadFile 함수를 호출하여 파일 업로드
-    uploadFile(formData)
+    productUploadFile(formData)
       .then((res) => {
-        const result = res
+        const result = res;
         //console.log(result)
 
         const link = result.map((item) => item.link);
-        const upDatefileNames = link.map((link) => link.substring(2)) // "s_" 제외한 부분 추출
+        const upDatefileNames = link.map((link) => link.substring(2)); // "s_" 제외한 부분 추출
 
         //console.log(upDatefileNames)
-        const updatedFileNames = [...product.imgsName, ...upDatefileNames]
+        const updatedFileNames = [...product.imgsName, ...upDatefileNames];
 
         // 상태 업데이트
         setProduct({
@@ -98,8 +98,8 @@ const RegistComponent = ({moveList}) => {
         });
       })
       .catch((error) => {
-        console.error("File upload error:", error)
-      })
+        console.error("File upload error:", error);
+      });
 
     fileRef.current.value = null;
   };
@@ -171,27 +171,30 @@ const RegistComponent = ({moveList}) => {
             ref={fileRef}
             multiple
             name="imgsName"
-            onChange={handleChangeFile}
+            onChange={handleFileUpload}
           />
         </dd>
       </dl>
       <ul className="overflow-x-auto overflow-y-hidden whitespace-nowrap mt-3 py-3">
         {product.imgsName.map((fname, idx) => (
-              <li
-                key={idx}
-                className="relative inline-block ml-2 first:ml-0 w-[130px] h-[130px] border border-[#eee] rounded-md"
-              >
-                <button
-                  className="bg-[#ae2d33] absolute -right-1 -top-2 w-7 h-7 text-white rounded-full"
-                  onClick={() => handleClickDelImg(fname)}
-                >
-                  X
-                </button>
-                <div className="overflow-hidden w-[130px] h-[130px]">
-                <img src={`http://localhost/product/${encodeURIComponent(fname)}`} className="w-[130px]" />
-                </div>
-              </li>
-            ))}
+          <li
+            key={idx}
+            className="relative inline-block ml-2 first:ml-0 w-[130px] h-[130px] border border-[#eee] rounded-md"
+          >
+            <button
+              className="bg-[#ae2d33] absolute -right-1 -top-2 w-7 h-7 text-white rounded-full"
+              onClick={() => handleClickDelImg(fname)}
+            >
+              X
+            </button>
+            <div className="overflow-hidden w-[130px] h-[130px]">
+              <img
+                src={`http://localhost/product/${encodeURIComponent(fname)}`}
+                className="w-[130px]"
+              />
+            </div>
+          </li>
+        ))}
       </ul>
       <div className="flex justify-end mt-5">
         <button

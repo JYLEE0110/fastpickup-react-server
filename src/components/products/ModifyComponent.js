@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { modifyProduct, readProduct } from "../../api/productAPI";
-import { removeFile, uploadFile } from "../../api/fileAPI";
+import { productRemoveFile, productUploadFile } from "../../api/fileAPI";
 
 const ModifyComponent = ({pno, moveRead, moveList}) => {
     
@@ -60,7 +60,7 @@ const ModifyComponent = ({pno, moveRead, moveList}) => {
     
         setProduct({ ...product });
     
-        removeFile(fname)
+        productRemoveFile(fname)
       };
     
       const handleChangeFile = () => {
@@ -75,7 +75,7 @@ const ModifyComponent = ({pno, moveRead, moveList}) => {
         console.dir(fileRef.current);
     
         // uploadFile 함수를 호출하여 파일 업로드
-        uploadFile(formData)
+        productUploadFile(formData)
           .then((res) => {
             const result = res
             //console.log(result)
