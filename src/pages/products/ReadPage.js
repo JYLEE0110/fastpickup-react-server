@@ -5,7 +5,7 @@ import ReviewComponent from "../../components/products/ReviewComponent";
 
 const ReadPage = () => {
 
-    const{queryObj,moveModify ,moveList} = useQueryObj();
+    const{queryObj, moveModify ,moveList} = useQueryObj();
 
     const {pno} = useParams();
 

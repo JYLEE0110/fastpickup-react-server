@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createSearchParams } from "react-router-dom"
+import jwtAxios from "../util/jwtUtil"
 
 // 상품상세페이지 리뷰 목록
 export const getProductReviewList = async(pno,page) => {
@@ -20,6 +21,20 @@ export const getMyPageReviewList = async(queryObj, memberID) => {
 export const registReview = async(reviewInfo) => {
 
     const res = await axios.post(`http://localhost:8080/api/review/regist`,reviewInfo)
+    return res.data
+}
+
+// 리뷰 상세
+export const readReview = async(rno) => {
+
+    const res = await axios.get(`http://localhost:8080/api/review/read/${rno}`)
+    return res.data
+
+}
+// 리뷰 답글 상세
+export const readReply = async(gno) => {
+
+    const res = await axios.get(`http://localhost:8080/api/review/reply/read/${gno}`)
     return res.data
 
 }

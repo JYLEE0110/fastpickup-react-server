@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import ListComponent from "../../components/review/ListComponent";
 import useQueryObj from "../../hooks/useQueryObj";
 
@@ -6,7 +7,7 @@ const ListPage = () => {
     const { queryObj, setSearch, moveRead } = useQueryObj();
 
     console.log(useQueryObj());
-  
+
     const movePage = (num) => {
       queryObj.page = num;
   

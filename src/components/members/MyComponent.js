@@ -51,7 +51,7 @@ const MyComponent = () => {
         <li className="w-[45%] h-28 rounded-2xl shadow-custom">
           <Link
             className="block h-20 text-center text-[18px] font-medium"
-            to={"/review/list"}
+            to={`/review/list`}
           >
             <img
               src={require("../../images/mypage_review.png")}
