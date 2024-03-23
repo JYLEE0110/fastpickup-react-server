@@ -13,7 +13,7 @@ const ModifyComponent = ({pno, moveRead, moveList}) => {
         imgsName: [],
       };
     
-      const [product, setProduct] = useState({ ...initState });
+      const [product, setProduct] = useState(initState);
     
       useEffect(() => {
         readProduct(pno).then((data) => {

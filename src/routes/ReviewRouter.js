@@ -21,7 +21,7 @@ const ReviewRouter = ({Loading}) => {
             element : <Suspense fallback = {Loading}><Review_Regist/></Suspense>
         },
         {
-            path : "modify/:rno",
+            path : "modify/:rno/:pno",
             element : <Suspense fallback = {Loading}><Review_Modify/></Suspense>
         },
 

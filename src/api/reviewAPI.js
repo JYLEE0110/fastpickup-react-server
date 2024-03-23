@@ -38,3 +38,11 @@ export const readReply = async(gno) => {
     return res.data
 
 }
+
+// 리뷰 수정
+export const modifyReview = async(modifyInfo) => {
+
+    const res = await axios.put(`http://localhost:8080/api/review/modify`,modifyInfo)
+    return res.data
+
+}

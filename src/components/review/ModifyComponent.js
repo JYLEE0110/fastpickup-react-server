@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { readProduct } from "../../api/productAPI";
+import { modifyReview, readReview } from "../../api/reviewAPI";
 import { reviewRemoveFile, reviewUploadFile } from "../../api/fileAPI";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { registReview } from "../../api/reviewAPI";
 
-const initState = {
+const productInitState = {
   pno: "",
   productName: "",
   productPrice: "",
@@ -16,60 +15,53 @@ const initState = {
 };
 
 const reviewInitState = {
+  rno: "",
+  pno: "",
+  memberID: "",
+  productName: "",
   reviewTitle: "",
   reviewContent: "",
-  pno: "",
-  gno : "0",
-  memberID: "",
+  registDate: "",
   imgsName: [],
 };
 
-const RegistComponent = ({ pno }) => {
-  
-  const {memberID} = useSelector(state => state.login)
+// const modifyReviewInitState = {
+//   rno: "",
+//   reviewTitle: "",
+//   reviewContent: "",
+//   imgsName: [],
+// };
 
-  const [product, setProduct] = useState(initState)
-  const [review, setReview] = useState({
-    ...reviewInitState,
-    pno: pno,
-    memberID: memberID,
-  });
-
-  const navigate = useNavigate()
+const ModifyComponent = ({ rno, pno, moveList }) => {
+  const [product, setProduct] = useState(productInitState);
+  const [review, setReview] = useState(reviewInitState);
+//   const [modifyReview, setModifyReview] = useState(modifyReviewInitState);
 
   const fileRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     readProduct(pno).then((data) => {
       setProduct(data);
     });
-  }, [pno]);
+
+    readReview(rno).then((data) => {
+      setReview(data);
+    });
+
+    // setModifyReview({
+    //   ...modifyReview,
+    //   rno: rno,
+    // });
+  }, [pno, rno]);
+
+  console.log(review)
 
   const handleChange = (e) => {
     setReview({
       ...review,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleRegistReview = () => {
-    registReview(review)
-      .then((res) => {
-        alert("리뷰 등록이 완료되었습니다.")
-        navigate(`/product/read/${pno}`)
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error("서버 응답 에러:", error.response.data);
-        } else if (error.request) {
-          console.error("요청 에러:", error.request);
-        } else {
-          console.error("일반적인 에러:", error.message);
-        }
-      });
-  };
-  const handleCancelBtn = () => {
-    navigate(-1);
   };
 
   const handleClickDelImg = (fname) => {
@@ -81,6 +73,28 @@ const RegistComponent = ({ pno }) => {
 
     reviewRemoveFile(fname);
   };
+
+  const handleCancelBtn = () => {
+    navigate(-1);
+  };
+
+  const handleModifyReview = () => {
+
+    modifyReview(review)
+    .then(res => {
+        moveList();
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error('서버 응답 에러:', error.response.data);
+        } else if (error.request) {
+          console.error('요청 에러:', error.request);
+        } else {
+          console.error('일반적인 에러:', error.message);
+        }
+      });
+
+  }
 
   const handleFileUpload = () => {
     const formData = new FormData();
@@ -190,9 +204,9 @@ const RegistComponent = ({ pno }) => {
           <div className="flex justify-end mt-5">
             <button
               className="w-20 h-10 text-white bg-[#ae2d33] rounded-md mr-2"
-              onClick={handleRegistReview}
+              onClick={handleModifyReview}
             >
-              등록
+              수정
             </button>
             <button
               className="w-20 h-10 border border-[#ae2d33] rounded-md"
@@ -207,4 +221,4 @@ const RegistComponent = ({ pno }) => {
   );
 };
 
-export default RegistComponent;
+export default ModifyComponent;

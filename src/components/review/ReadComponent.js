@@ -22,7 +22,7 @@ const replyInitState = {
   imgsName: [],
 };
 
-const ReadComponent = ({ rno, moveModify, moveList }) => {
+const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
   const [review, setReview] = useState(initState);
   const [reviewReply, setReviewReply] = useState(initState);
   const [reply, setReply] = useState(replyInitState);
@@ -116,7 +116,7 @@ const ReadComponent = ({ rno, moveModify, moveList }) => {
         </button>
         <button
           className="w-20 h-10 text-white bg-blue-700 rounded-md mr-2"
-          onClick={() => moveModify(rno)}
+          onClick={() => moveReviewModify(rno, review.pno)}
         >
           수정
         </button>

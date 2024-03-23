@@ -4,13 +4,13 @@ import ReadComponent from "../../components/review/ReadComponent";
 
 const ReadPage = () => {
 
-    const{queryObj, moveModify ,moveList} = useQueryObj();
+    const{queryObj, moveReviewModify ,moveList} = useQueryObj();
 
     const {rno} = useParams();
 
     return (
         <div>
-            <ReadComponent rno ={rno} queryObj={queryObj} moveModify = {moveModify} moveList={moveList}></ReadComponent>
+            <ReadComponent rno ={rno} queryObj={queryObj} moveReviewModify = {moveReviewModify} moveList={moveList}></ReadComponent>
         </div>
      );
 }
