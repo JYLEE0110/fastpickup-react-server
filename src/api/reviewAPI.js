@@ -46,3 +46,11 @@ export const modifyReview = async(modifyInfo) => {
     return res.data
 
 }
+
+// 리뷰 삭제
+export const removeReview = async(rno) => {
+
+    const res = await axios.put(`http://localhost:8080/api/review/remove/${rno}`)
+    return res.data
+
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { readReply, readReview, registReview } from "../../api/reviewAPI";
+import { readReply, readReview, registReview, removeReview } from "../../api/reviewAPI";
 import { useSelector } from "react-redux";
 
 const initState = {
@@ -74,6 +74,16 @@ const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
       });
   };
 
+  const handleRemoveReview = () => {
+
+    removeReview(rno)
+    .then(res => {
+      moveList()
+      alert("리뷰가 정상적으로 삭제되었습니다.")
+    })
+
+  }
+
   return (
     <div className="max-w-3xl mx-auto p-6 mt-8 bg-white rounded-md shadow-md">
       <h2 className="text-3xl font-semibold mb-4">{review.reviewTitle}</h2>
@@ -114,6 +124,9 @@ const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
         >
           목록
         </button>
+        {!reviewReply.reviewContent && (
+          <>
+          <div>
         <button
           className="w-20 h-10 text-white bg-blue-700 rounded-md mr-2"
           onClick={() => moveReviewModify(rno, review.pno)}
@@ -123,10 +136,14 @@ const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
 
         <button
           className="w-20 h-10 text-white bg-[#ae2d33] rounded-md"
-          //   onClick={handleRemoveProduct}
+            onClick={handleRemoveReview}
         >
           삭제
         </button>
+        </div>
+        </>
+        )}
+        
       </div>
 
       {!reviewReply.reviewContent && roleNames.includes("ROLE_ADMIN") && ( // ROLE_ADMIN이 포함되어 있을 경우에만 답글 작성 폼을 렌더링
