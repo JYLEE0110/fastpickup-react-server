@@ -50,8 +50,16 @@ const useQueryObj = () => {
         navigate(`../modify/${num}?${queryString}`)
       }
 
+      const moveReviewModify = (num, pno) => {
+        //console.log("moveUpdate: ---" + num)
+    
+        const queryString = createSearchParams(queryObj).toString()
+    
+        navigate(`../modify/${num}/${pno}?${queryString}`)
+      }
 
-      return {setSearch, queryObj, moveList, moveRead, moveModify}
+
+      return {setSearch, queryObj, moveList, moveRead, moveModify, moveReviewModify}
 }
  
 export default useQueryObj;
