@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createSearchParams } from "react-router-dom"
+import jwtAxios from "../util/jwtUtil"
 
 // 주문 생성
 export const order = async(params) => {
@@ -9,11 +10,11 @@ export const order = async(params) => {
 }
 
 // 주문 목록
-export const getOrderList = async(queryObj) => {
+export const getOrderList = async(queryObj, memberID) => {
 
     const queryString = createSearchParams(queryObj).toString()
 
-    const res = await axios.get(`http://localhost:8080/api/order/list?${queryString}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/order/list/${memberID}?${queryString}`)
 
     return res.data
 }
@@ -21,7 +22,7 @@ export const getOrderList = async(queryObj) => {
 // 주문 상세
 export const readOrderInfo = async(ono) => {
 
-    const res = await axios.get(`http://localhost:8080/api/order/read/${ono}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/order/read/${ono}`)
 
     return res.data
 }

@@ -13,28 +13,28 @@ export const getProductReviewList = async(pno,page) => {
 export const getMyPageReviewList = async(queryObj, memberID) => {
 
     const queryString = createSearchParams(queryObj).toString()
-    const res = await axios.get(`http://localhost:8080/api/review/list/mypage/${memberID}?${queryString}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/review/list/mypage/${memberID}?${queryString}`)
     return res.data
 
 }
 // 리뷰 작성
 export const registReview = async(reviewInfo) => {
 
-    const res = await axios.post(`http://localhost:8080/api/review/regist`,reviewInfo)
+    const res = await jwtAxios.post(`http://localhost:8080/api/review/regist`,reviewInfo)
     return res.data
 }
 
 // 리뷰 상세
 export const readReview = async(rno) => {
 
-    const res = await axios.get(`http://localhost:8080/api/review/read/${rno}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/review/read/${rno}`)
     return res.data
 
 }
 // 리뷰 답글 상세
 export const readReply = async(gno) => {
 
-    const res = await axios.get(`http://localhost:8080/api/review/reply/read/${gno}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/review/reply/read/${gno}`)
     return res.data
 
 }
@@ -42,7 +42,7 @@ export const readReply = async(gno) => {
 // 리뷰 수정
 export const modifyReview = async(modifyInfo) => {
 
-    const res = await axios.put(`http://localhost:8080/api/review/modify`,modifyInfo)
+    const res = await jwtAxios.put(`http://localhost:8080/api/review/modify`,modifyInfo)
     return res.data
 
 }
@@ -50,7 +50,7 @@ export const modifyReview = async(modifyInfo) => {
 // 리뷰 삭제
 export const removeReview = async(rno) => {
 
-    const res = await axios.put(`http://localhost:8080/api/review/remove/${rno}`)
+    const res = await jwtAxios.put(`http://localhost:8080/api/review/remove/${rno}`)
     return res.data
 
 }

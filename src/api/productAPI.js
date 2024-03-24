@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createSearchParams } from "react-router-dom"
+import jwtAxios from "../util/jwtUtil"
 
 
 // 상품 목록
@@ -16,7 +17,7 @@ export const getProductList = async(queryObj) => {
 // 상품 등록
 export const registProduct = async(productInfo) => {
 
-    const res = await axios.post(`http://localhost:8080/api/product/regist`, productInfo)
+    const res = await jwtAxios.post(`http://localhost:8080/api/product/regist`, productInfo)
     return res.data
 
 }
@@ -31,7 +32,7 @@ export const readProduct = async(pno) => {
 // 상품 삭제
 export const removeProduct = async(pno) => {
 
-    const res = await axios.put(`http://localhost:8080/api/product/remove/${pno}`)
+    const res = await jwtAxios.put(`http://localhost:8080/api/product/remove/${pno}`)
     return res.data
 }
 
@@ -39,6 +40,6 @@ export const removeProduct = async(pno) => {
 // 상품 수정
 export const modifyProduct = async(productInfo) => {
 
-    const res = await axios.put(`http://localhost:8080/api/product/modify`,productInfo)
+    const res = await jwtAxios.put(`http://localhost:8080/api/product/modify`,productInfo)
     return res.data
 }

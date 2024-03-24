@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getOrderList, order } from "../../api/orderAPI";
 import ListPageComponent from "../common/ListPageComponent";
+import { useSelector } from "react-redux";
 
 const initState = {
   list: [],
@@ -17,8 +18,10 @@ const initState = {
 const Listcomponent = ({ queryObj, movePage, moveRead }) => {
   const [orderList, setOrderList] = useState({ ...initState });
 
+  const {memberID} = useSelector((state) => state.login)
+
   useEffect(() => {
-    getOrderList(queryObj).then((data) => {
+    getOrderList(queryObj, memberID).then((data) => {
       setOrderList(data);
     });
   }, [queryObj]);
