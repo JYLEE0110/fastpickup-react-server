@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { readOrderInfo, modifyOrderStatus } from "../../api/orderAPI";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const initState = {
   memberID: "",
@@ -12,6 +13,9 @@ const initState = {
 
 const ReadComponent = ({ ono, queryObj, moveList }) => {
   const [orderInfo, setOrderInfo] = useState({ ...initState });
+
+  const {roleNames} = useSelector((state) => state.login)
+  const isAdmin = roleNames.includes('ROLE_ADMIN')
 
   const navigate = useNavigate()
 
@@ -105,29 +109,31 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
           ))}
         </ul>
       </div>
+      {isAdmin&&(
+              <div className="mb-4">
+              <div className="flex mt-2 justify-end">
+                <button
+                  onClick={() => handleStatusChange("접수")}
+                  className="mr-2 bg-green-500 text-white px-4 py-2 rounded"
+                >
+                  접수
+                </button>
+                <button
+                  onClick={() => handleStatusChange("완료")}
+                  className="mr-2 bg-blue-700 text-white px-4 py-2 rounded"
+                >
+                  완료
+                </button>
+                <button
+                  onClick={() => handleStatusChange("반려")}
+                  className="bg-red-600 text-white px-4 py-2 rounded"
+                >
+                  반려
+                </button>
+              </div>
+            </div>
+      )}
 
-      <div className="mb-4">
-        <div className="flex mt-2 justify-end">
-          <button
-            onClick={() => handleStatusChange("접수")}
-            className="mr-2 bg-green-500 text-white px-4 py-2 rounded"
-          >
-            접수
-          </button>
-          <button
-            onClick={() => handleStatusChange("완료")}
-            className="mr-2 bg-blue-700 text-white px-4 py-2 rounded"
-          >
-            완료
-          </button>
-          <button
-            onClick={() => handleStatusChange("반려")}
-            className="bg-red-600 text-white px-4 py-2 rounded"
-          >
-            반려
-          </button>
-        </div>
-      </div>
     </div>
   );
 };

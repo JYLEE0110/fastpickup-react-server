@@ -30,7 +30,7 @@ export const removeCartItem = async(cno) => {
 // 장바구니 아이템 전체 삭제
 export const removeAllItem = async(memberID) => {
 
-    const res = await axios.delete(`http://localhost:8080/api/cart/removeAll/${memberID}`)
+    const res = await jwtAxios.delete(`http://localhost:8080/api/cart/removeAll/${memberID}`)
 
     return res.data
 
