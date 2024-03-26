@@ -6,7 +6,12 @@ import { getCookie, setCookie } from "../util/cookieUtil";
 
 const BasicLayout = ({ children }) => {
   const navigate = useNavigate();
+  
   const { memberID } = useSelector((state) => state.login);
+  const {roleNames} = useSelector((state) => state.login)
+
+  const isAdmin = roleNames.includes('ROLE_ADMIN')
+
   const list = useSelector((state) => state.cart);
 
   useEffect(() => {
@@ -78,7 +83,9 @@ const BasicLayout = ({ children }) => {
       </div>
 
       <div className="flex h-screen">
-        <HeaderNav className="flex-grow"></HeaderNav>
+        {/* {isAdmin &&(
+          )} */}
+          <HeaderNav className="flex-grow"></HeaderNav>
         <div className="mt-[70px] w-full">{children}</div>
       </div>
     </div>

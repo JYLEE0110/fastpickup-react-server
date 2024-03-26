@@ -20,10 +20,15 @@ const initState = {
 const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
 
   const {memberID} = useSelector(state => state.login)
+  const {roleNames} = useSelector(state => state.login)
+
+  // 권한 중 admin이 있는지 확인
+  const isAdmin = roleNames.includes('ROLE_ADMIN')
+
   const navigate = useNavigate()
 
   console.log(memberID)
-  // console.log(total)
+  console.log(roleNames)
 
   const dispatch = useDispatch()
   const [product, setProduct] = useState({...initState});
@@ -133,27 +138,31 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
         </label>
       </div>
       <div className="flex mt-5 justify-end">
-        <button
-          className="w-20 h-10 border border-[#ae2d33] rounded-md mr-2"
-          onClick={moveList}
-        >
-          목록
-        </button>
+      <button
+        className="w-20 h-10 border border-[#ae2d33] rounded-md mr-2"
+        onClick={moveList}
+      >
+        목록
+      </button>
+      {/* ROLE_ADMIN이 포함되어 있다면 수정 버튼을 렌더링합니다. */}
+      {isAdmin && (
         <button
           className="w-20 h-10 text-white bg-blue-700 rounded-md mr-2"
-            onClick={() => moveModify(pno)}
+          onClick={() => moveModify(pno)}
         >
           수정
         </button>
-
+      )}
+      {/* ROLE_ADMIN이 포함되어 있다면 삭제 버튼을 렌더링합니다. */}
+      {isAdmin && (
         <button
           className="w-20 h-10 text-white bg-[#ae2d33] rounded-md"
-            onClick={handleRemoveProduct}
+          onClick={handleRemoveProduct}
         >
           삭제
         </button>
-
-      </div>
+      )}
+    </div>
 
       {/* 댓글 작성 폼
       <div className="mt-8">

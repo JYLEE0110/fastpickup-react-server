@@ -8,7 +8,7 @@ export const getMemberList = async(queryObj) => {
     const queryString = createSearchParams(queryObj).toString()
 
     // const res = await jwtAxios.get(`http://localhost:8080/api/member/list?${queryString}`)
-    const res = await axios.get(`http://localhost:8080/api/member/list?${queryString}`)
+    const res = await jwtAxios.get(`http://localhost:8080/api/member/list?${queryString}`)
     return res.data
 
 }
@@ -40,7 +40,7 @@ export const registMember = async(loginInfo) => {
 // 회원 탈퇴
 export const withdrawalMember = async(memberID) => {
 
-    const res = await axios.put(`http://localhost:8080/api/member/remove/${memberID}`)
+    const res = await jwtAxios.put(`http://localhost:8080/api/member/remove/${memberID}`)
 
     return res.data
 
@@ -49,7 +49,7 @@ export const withdrawalMember = async(memberID) => {
 // 탈퇴회원 재활성화
 export const reactiveMember = async(memberID) => {
 
-    const res = await axios.put(`http://localhost:8080/api/member/reactive/${memberID}`)
+    const res = await jwtAxios.put(`http://localhost:8080/api/member/reactive/${memberID}`)
 
     return res.data
 

@@ -4,7 +4,7 @@ import jwtAxios from "../util/jwtUtil"
 
 // 주문 생성
 export const order = async(params) => {
-    const res = await axios.post(`http://localhost:8080/api/order/create`,params)
+    const res = await jwtAxios.post(`http://localhost:8080/api/order/create`,params)
 
     return res.data
 }
@@ -30,7 +30,7 @@ export const readOrderInfo = async(ono) => {
 // 주문상태 변경
 export const modifyOrderStatus = async(params) => {
 
-    const res = await axios.post(`http://localhost:8080/api/order/modify/status`,params)
+    const res = await jwtAxios.post(`http://localhost:8080/api/order/modify/status`,params)
 
     return res.data
 }

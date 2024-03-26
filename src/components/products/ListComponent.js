@@ -18,6 +18,10 @@ const initState = {
 
 const ListComponent = ({ queryObj, movePage, moveRead }) => {
   const [productList, setProductList] = useState({ ...initState });
+
+  const { roleNames } = useSelector((state) => state.login);
+  const isAdmin = roleNames.includes("ROLE_ADMIN");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,14 +69,17 @@ const ListComponent = ({ queryObj, movePage, moveRead }) => {
           )}
         </div>
       </div>
-      <div className="float-right top-4 right-4">
-        <button
-          className="bg-[#dc4a51] text-white mr-5 px-4 py-2 rounded-md mt-5"
-          onClick={() => navigate("../regist")}
-        >
-          상품 등록
-        </button>
-      </div>
+      {isAdmin && (
+        <div className="float-right top-4 right-4">
+          <button
+            className="bg-[#dc4a51] text-white mr-5 px-4 py-2 rounded-md mt-5"
+            onClick={() => navigate("../regist")}
+          >
+            상품 등록
+          </button>
+        </div>
+      )}
+
       <div>
         <ListPageComponent
           movePage={movePage}
