@@ -9,7 +9,7 @@ export const getProductList = async(queryObj) => {
     // 
     const queryString = createSearchParams(queryObj).toString()
 
-    const res = await axios.get(`http://localhost:8080/api/product/list?${queryString}`)
+    const res = await axios.get(`http://13.209.200.159/api/product/list?${queryString}`)
     return res.data
 
 }
@@ -17,7 +17,7 @@ export const getProductList = async(queryObj) => {
 // 상품 등록
 export const registProduct = async(productInfo) => {
 
-    const res = await jwtAxios.post(`http://localhost:8080/api/product/regist`, productInfo)
+    const res = await jwtAxios.post(`http://13.209.200.159/api/product/regist`, productInfo)
     return res.data
 
 }
@@ -25,14 +25,14 @@ export const registProduct = async(productInfo) => {
 // 상품 상세 페이지
 export const readProduct = async(pno) => {
 
-    const res = await axios.get(`http://localhost:8080/api/product/read/${pno}`)
+    const res = await axios.get(`http://13.209.200.159/api/product/read/${pno}`)
     return res.data
 }
 
 // 상품 삭제
 export const removeProduct = async(pno) => {
 
-    const res = await jwtAxios.put(`http://localhost:8080/api/product/remove/${pno}`)
+    const res = await jwtAxios.put(`http://13.209.200.159/api/product/remove/${pno}`)
     return res.data
 }
 
@@ -40,6 +40,6 @@ export const removeProduct = async(pno) => {
 // 상품 수정
 export const modifyProduct = async(productInfo) => {
 
-    const res = await jwtAxios.put(`http://localhost:8080/api/product/modify`,productInfo)
+    const res = await jwtAxios.put(`http://13.209.200.159/api/product/modify`,productInfo)
     return res.data
 }
