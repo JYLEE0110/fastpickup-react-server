@@ -1,9 +1,11 @@
 import { Suspense, lazy } from "react";
 
 const Member_Login = lazy(() => import("../pages/members/LoginPage"))
+const Member_List = lazy(() => import("../pages/members/ListPage"))
 const Member_Regist = lazy(() => import("../pages/members/RegistPage"))
 const Member_Read = lazy(() => import("../pages/members/ReadPage"))
 const Member_Modify = lazy(() => import("../pages/members/ModifyPage"))
+const Member_MyPage = lazy(() => import("../pages/members/MyPage"))
 
 
 const MemberRouter = ({Loading}) => {
@@ -11,6 +13,15 @@ const MemberRouter = ({Loading}) => {
         {
             path : "login",
             element: <Suspense fallback = {Loading}><Member_Login/></Suspense>    
+        },
+        {
+            path : "mypage",
+            element: <Suspense fallback = {Loading}><Member_MyPage/></Suspense>    
+        },
+
+        {
+            path : "list",
+            element: <Suspense fallback = {Loading}><Member_List/></Suspense>    
         },
 
         {
