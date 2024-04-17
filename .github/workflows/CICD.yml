@@ -47,6 +47,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo docker rm -f fastpickup_react
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fastpickup_server:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fastpickup_client:latest
             sudo docker-compose -f docker-compose-react.yml up -d
             docker image prune -f
