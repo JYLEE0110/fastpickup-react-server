@@ -43,7 +43,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.FASTPICKUP_SERVER_IP }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo docker rm -f fastpickup_react
