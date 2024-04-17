@@ -8,7 +8,7 @@ export const getMemberList = async(queryObj) => {
     const queryString = createSearchParams(queryObj).toString()
 
     // const res = await jwtAxios.get(`http://localhost:8080/api/member/list?${queryString}`)
-    const res = await jwtAxios.get(`http://localhost:8080/api/member/list?${queryString}`)
+    const res = await jwtAxios.get(`http://13.209.200.159/api/member/list?${queryString}`)
     return res.data
 
 }
@@ -21,7 +21,7 @@ export const postLogin = async(params) => {
     formData.append('username', params.username)
     formData.append('password', params.password)
 
-    const res = await axios.post("http://localhost:8080/api/member/login", formData, {
+    const res = await axios.post("http://13.209.200.159/api/member/login", formData, {
         headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
     })
 

@@ -4,7 +4,7 @@ import jwtAxios from "../util/jwtUtil"
 
 // 주문 생성
 export const order = async(params) => {
-    const res = await jwtAxios.post(`http://localhost:8080/api/order/create`,params)
+    const res = await jwtAxios.post(`http://13.209.200.159/api/order/create`,params)
 
     return res.data
 }
@@ -14,7 +14,7 @@ export const getOrderList = async(queryObj, memberID) => {
 
     const queryString = createSearchParams(queryObj).toString()
 
-    const res = await jwtAxios.get(`http://localhost:8080/api/order/list/${memberID}?${queryString}`)
+    const res = await jwtAxios.get(`http://13.209.200.159/api/order/list/${memberID}?${queryString}`)
 
     return res.data
 }
@@ -22,7 +22,7 @@ export const getOrderList = async(queryObj, memberID) => {
 // 주문 상세
 export const readOrderInfo = async(ono) => {
 
-    const res = await jwtAxios.get(`http://localhost:8080/api/order/read/${ono}`)
+    const res = await jwtAxios.get(`http://13.209.200.159/api/order/read/${ono}`)
 
     return res.data
 }
