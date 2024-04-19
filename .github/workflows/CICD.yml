@@ -50,4 +50,4 @@ jobs:
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fastpickup_client:latest
             sudo docker-compose -f docker-compose-react.yml up -d
             sudo docker image prune -f
-            
+          
