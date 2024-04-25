@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { readProduct, removeProduct } from "../../api/productAPI";
 import { setCookie } from "../../util/cookieUtil";
-import { addCart } from "../../api/cartAPI";
+import { addCart, removeAllItem } from "../../api/cartAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartListThunk } from "../../reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,7 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   const [product, setProduct] = useState({...initState});
   const [quantity, setQuantity] = useState(1);
 
+  
 
   useEffect(() => {
     readProduct(pno).then((data) => {
@@ -42,15 +43,14 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   }, [pno]);
 
   console.log(product)
-
   const handleRemoveProduct = (() => {
 
     removeProduct(pno)
       .then(res => {
+        removeAllItem(product.imgsName)
         moveList()
         alert("상품이 정상적으로 삭제되었습니다.")
       })
-
   })
 
   const handleAddToCart = () => {
