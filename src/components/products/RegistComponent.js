@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCategoryList } from "../../api/categoryAPI";
-import { productRemoveFile, productUploadFile } from "../../api/fileAPI";
+import { removeFile, uploadFile } from "../../api/fileAPI";
 import { registProduct } from "../../api/productAPI";
 
 const RegistComponent = ({ moveList }) => {
@@ -64,7 +64,7 @@ const RegistComponent = ({ moveList }) => {
 
     setProduct({ ...product });
 
-    productRemoveFile(fname);
+    removeFile(fname);
   };
 
   const handleFileUpload = () => {
@@ -80,10 +80,10 @@ const RegistComponent = ({ moveList }) => {
     console.dir(fileRef.current);
 
     // uploadFile 함수를 호출하여 파일 업로드
-    productUploadFile(formData)
+    uploadFile(formData)
       .then((res) => {
         const result = res;
-        //console.log(result)
+        console.log(result)
 
         const link = result.map((item) => item.link);
         const upDatefileNames = link.map((link) => link.substring(2)); // "s_" 제외한 부분 추출
@@ -189,7 +189,7 @@ const RegistComponent = ({ moveList }) => {
             </button>
             <div className="overflow-hidden w-[130px] h-[130px]">
               <img
-                src={`http://localhost/product/${encodeURIComponent(fname)}`}
+                src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${encodeURIComponent(fname)}`}
                 className="w-[130px]"
               />
             </div>

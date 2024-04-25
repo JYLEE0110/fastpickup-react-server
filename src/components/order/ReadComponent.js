@@ -88,7 +88,7 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
           {orderInfo.orderProduct.map((product, index) => (
             <li key={index} className="flex items-center space-x-4 mb-3 mt-3">
               <img
-                src={`http://localhost/product/${product.imgName}`}
+                src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${product.imgName}`}
                 alt={product.productName}
                 className="w-24 h-24 object-cover rounded"
               />

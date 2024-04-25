@@ -72,7 +72,7 @@ const ReviewComponent = ({ pno }) => {
                   {imgName && (
                     <ul className="mt-3 overflow-x-auto overflow-y-hidden whitespace-nowrap">
                       <img
-                        src={`http://localhost/review/${imgName}`}
+                        src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${imgName}`}
                         className="w-[120px]"
                       />
                     </ul>

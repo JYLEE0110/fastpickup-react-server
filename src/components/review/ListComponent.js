@@ -35,7 +35,7 @@ const ListComponent = ({ queryObj, movePage, moveRead}) => {
             <p className="text-gray-600">주문상품: {productName}</p>
             <div className="w-20 h-20 overflow-hidden rounded-full">
               <img
-                src={`http://localhost/review/${imgName}`}
+                src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${imgName}`}
                 className="w-full h-full object-cover"
               />
             </div>

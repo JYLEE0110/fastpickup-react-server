@@ -66,7 +66,7 @@ const Listcomponent = ({ queryObj, movePage, moveRead }) => {
                   onClick={() => moveRead(ono)}
                 >
                   <img
-                    src={`http://localhost/product/${imgName}`}
+                    src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${imgName}`}
                     alt={productName}
                     className="w-20 h-20 object-cover rounded"
                   />

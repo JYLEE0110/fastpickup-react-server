@@ -47,7 +47,7 @@ const ListComponent = ({ queryObj, movePage, moveRead }) => {
                 <div className="flex">
                   <div className="w-20 h-20 overflow-hidden rounded-full">
                     <img
-                      src={`http://localhost/product/${imgName}`}
+                      src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${imgName}`}
                       className="w-full h-full object-cover"
                       alt={productName}
                     />

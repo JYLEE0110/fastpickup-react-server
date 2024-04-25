@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { readProduct } from "../../api/productAPI";
 import { modifyReview, readReview } from "../../api/reviewAPI";
-import { reviewRemoveFile, reviewUploadFile } from "../../api/fileAPI";
+import { removeFile, uploadFile } from "../../api/fileAPI";
 import { useNavigate } from "react-router-dom";
 
 const productInitState = {
@@ -71,7 +71,7 @@ const ModifyComponent = ({ rno, pno, moveList }) => {
 
     setReview({ ...review });
 
-    reviewRemoveFile(fname);
+    removeFile(fname);
   };
 
   const handleCancelBtn = () => {
@@ -109,7 +109,7 @@ const ModifyComponent = ({ rno, pno, moveList }) => {
     console.dir(fileRef.current);
 
     // uploadFile 함수를 호출하여 파일 업로드
-    reviewUploadFile(formData)
+    uploadFile(formData)
       .then((res) => {
         const result = res;
         //console.log(result)
@@ -147,7 +147,7 @@ const ModifyComponent = ({ rno, pno, moveList }) => {
                   className="inline-block ml-2 first:ml-0 w-[130px] h-[130px] border border-[#eee] rounded-md overflow-hidden"
                 >
                   <img
-                    src={`http://localhost/product/${fname}`}
+                    src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${fname}`}
                     className="w-[130px]"
                     alt={`Product Image ${idx + 1}`}
                   />
@@ -194,7 +194,7 @@ const ModifyComponent = ({ rno, pno, moveList }) => {
                 </button>
                 <div className="overflow-hidden w-[130px] h-[130px]">
                   <img
-                    src={`http://localhost/review/${encodeURIComponent(fname)}`}
+                    src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${encodeURIComponent(fname)}`}
                     className="w-[130px]"
                   />
                 </div>
