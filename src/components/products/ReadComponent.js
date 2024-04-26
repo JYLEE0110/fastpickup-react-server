@@ -34,8 +34,6 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
   const [product, setProduct] = useState({...initState});
   const [quantity, setQuantity] = useState(1);
 
-  
-
   useEffect(() => {
     readProduct(pno).then((data) => {
       setProduct(data);
