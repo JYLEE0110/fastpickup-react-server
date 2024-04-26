@@ -22,10 +22,9 @@ export const removeFile = async(fileName) => {
 }
 
 // remove All File
-export const removeAllFile = async(files) => {
-
-    const res = await jwtAxios.delete(`http://13.209.200.159/api/file/remove/all`,files)
-
-    return res.data
-
+export const removeAllFile = async (fileNames) => {
+    const res = await jwtAxios.delete(`http://13.209.200.159/api/file/remove/all`, {
+        data: { imgsName: fileNames }
+    });
+    return res.data;
 }

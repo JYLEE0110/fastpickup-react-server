@@ -41,7 +41,7 @@ const ReadComponent = ({ pno, queryObj, moveList, moveModify }) => {
     });
   }, [pno]);
 
-  console.log(product)
+  console.log(product.imgsName)
   const handleRemoveProduct = (() => {
 
     removeProduct(pno)
