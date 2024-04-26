@@ -162,7 +162,7 @@ const ModifyComponent = ({pno, moveRead, moveList}) => {
                       X
                     </button>
                     <div className="overflow-hidden w-[130px] h-[130px]">
-                    <img src={`http://localhost/product/${encodeURIComponent(fname)}`} className="w-[130px]" />
+                    <img src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${encodeURIComponent(fname)}`} className="w-[130px]" />
                     </div>
                   </li>
                 ))}
