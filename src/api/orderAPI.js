@@ -30,7 +30,7 @@ export const readOrderInfo = async(ono) => {
 // 주문상태 변경
 export const modifyOrderStatus = async(params) => {
 
-    const res = await jwtAxios.post(`http://localhost:8080/api/order/modify/status`,params)
+    const res = await jwtAxios.post(`http://13.209.200.159/api/order/modify/status`,params)
 
     return res.data
 }

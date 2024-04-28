@@ -31,7 +31,7 @@ export const postLogin = async(params) => {
 // 회원 등록
 export const registMember = async(loginInfo) => {
 
-    const res = await axios.post(`http://localhost:8080/api/member/regist`, loginInfo)
+    const res = await axios.post(`http://13.209.200.159/api/member/regist`, loginInfo)
 
     return res.data
 
@@ -40,7 +40,7 @@ export const registMember = async(loginInfo) => {
 // 회원 탈퇴
 export const withdrawalMember = async(memberID) => {
 
-    const res = await jwtAxios.put(`http://localhost:8080/api/member/remove/${memberID}`)
+    const res = await jwtAxios.put(`http://13.209.200.159/api/member/remove/${memberID}`)
 
     return res.data
 
@@ -49,7 +49,7 @@ export const withdrawalMember = async(memberID) => {
 // 탈퇴회원 재활성화
 export const reactiveMember = async(memberID) => {
 
-    const res = await jwtAxios.put(`http://localhost:8080/api/member/reactive/${memberID}`)
+    const res = await jwtAxios.put(`http://13.209.200.159/api/member/reactive/${memberID}`)
 
     return res.data
 
