@@ -21,7 +21,7 @@ const useQueryObj = () => {
     const navigate = useNavigate()
 
     const page = search.get("page") || 1
-    const size = search.get("size") || 10
+    const size = search.get("size") || 12
     const type = search.get("type")
     const keyword = search.get("keyword")
     const withDrawalStatus = search.get("withDrawalStatus")

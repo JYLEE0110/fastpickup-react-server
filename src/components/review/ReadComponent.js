@@ -209,7 +209,7 @@ const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
             className="inline-block ml-2 first:ml-0 w-[130px] h-[130px] border border-[#eee] rounded-md overflow-hidden"
           >
             <img
-              src={`http://localhost/review/${fname}`}
+              src={`https://fastpickup-bucket.s3.ap-northeast-2.amazonaws.com/${fname}`}
               className="w-[130px]"
             />
           </li>

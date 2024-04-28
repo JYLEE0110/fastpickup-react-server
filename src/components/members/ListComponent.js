@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMemberList, reactiveMember } from "../../api/memberAPI";
+import { getMemberList, reactiveMember, withdrawalMember } from "../../api/memberAPI";
 import { useNavigate } from "react-router-dom";
 import ListPageComponent from "../common/ListPageComponent";
 
@@ -25,6 +25,19 @@ const ListComponent = ({ queryObj, moveRead, movePage }) => {
       setMemberList(data);
     })
   }, [queryObj]);
+
+  const handleNonReactiveBtn = (memberID) => {
+
+    if (window.confirm("계정을 비활성화하시겠습니까?")) {
+      withdrawalMember(memberID).then(() => {
+        alert("해당 유저의 계정이 비활성화 되었습니다.");
+        // After reactivation, you may want to refresh the member list
+        getMemberList(queryObj).then((data) => {
+          setMemberList(data);
+        });
+      });
+    }
+  }
 
   const handleReactiveBtn = (memberID) => {
     if (window.confirm("계정을 활성화하시겠습니까?")) {
@@ -59,7 +72,19 @@ const ListComponent = ({ queryObj, moveRead, movePage }) => {
                   <div className="text-[14px] text-red-500 font-semibold ">Withdrawal Date: {withDrawalDate.slice(0, 10)}</div>
                 )}
               </div>
-              {withDrawalStatus && (
+
+
+
+              {withDrawalStatus === false ? (
+                  <button
+                    className="bg-red-700 text-white mr-5 px-4 py-2 rounded-md mt-5 ml-auto"
+                    style={{ textDecoration: 'none' }}
+                    onClick={() => {handleNonReactiveBtn(memberID)}}
+                  >
+                    비활성화
+                  </button>
+
+              ):(              
                 <button
                 className="bg-blue-700 text-white mr-5 px-4 py-2 rounded-md mt-5 ml-auto"
                   style={{ textDecoration: 'none' }}
@@ -67,20 +92,21 @@ const ListComponent = ({ queryObj, moveRead, movePage }) => {
                 >
                   활성화
                 </button>
-              )}
+                )
+              }
             </div>
           </li>
         ))}
       </ul>
     </div>
-    <div className="float-right top-4 right-4">
+    {/* <div className="float-right top-4 right-4">
       <button
-        className="bg-[#dc4a51] text-white mr-5 px-4 py-2 rounded-md mt-5"
+        className="bg-green-600 text-white mr-5 px-4 py-2 rounded-md mt-5"
         onClick={() => navigate("../regist")}
       >
         회원 등록
       </button>
-    </div>
+    </div> */}
     <div>
       <ListPageComponent movePage={movePage} {...memberList}></ListPageComponent>
     </div>
