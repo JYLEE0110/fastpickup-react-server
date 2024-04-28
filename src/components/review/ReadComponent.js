@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { readReply, readReview, registReview, removeReview } from "../../api/reviewAPI";
 import { useSelector } from "react-redux";
+import { removeAllFile } from "../../api/fileAPI";
 
 const initState = {
   rno: "",
@@ -78,6 +79,7 @@ const ReadComponent = ({ rno, moveReviewModify, moveList }) => {
 
     removeReview(rno)
     .then(res => {
+      removeAllFile(review.imgsName)
       moveList()
       alert("리뷰가 정상적으로 삭제되었습니다.")
     })
