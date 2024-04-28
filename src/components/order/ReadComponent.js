@@ -74,7 +74,7 @@ const ReadComponent = ({ ono, queryObj, moveList }) => {
         <strong>주문자 ID:</strong> {orderInfo.memberID}
       </div>
       <div className="mb-4">
-        <strong>주문 일자:</strong> {orderInfo.orderDate}
+        <strong>주문 일자:</strong> {orderInfo.orderDate.slice(0, 10)}
       </div>
       <div className="mb-4">
         <strong>주문 상태:</strong>{" "}

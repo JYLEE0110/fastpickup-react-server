@@ -82,7 +82,7 @@ const Listcomponent = ({ queryObj, movePage, moveRead }) => {
                   <span className="font-bold">주문 메뉴:</span> {productName}
                 </p>
                 <p className="text-gray-600 mb-1">
-                  <span className="font-bold">주문 날짜:</span> {orderDate}
+                  <span className="font-bold">주문 날짜:</span> {orderDate.slice(0, 10)}
                 </p>
                 {/* 리뷰 작성 가능 문구 */}
                 {orderStatus === "완료" && (
