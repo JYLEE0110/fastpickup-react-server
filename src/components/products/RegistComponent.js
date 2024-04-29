@@ -20,6 +20,7 @@ const RegistComponent = ({ moveList }) => {
 
   const [product, setProduct] = useState({ ...initState });
   const [category, setCategory] = useState({ ...initStateCategory });
+  const [error, setError] = useState(null); // 상태 추가
 
   useEffect(() => {
     getCategoryList().then((data) => {
@@ -46,6 +47,7 @@ const RegistComponent = ({ moveList }) => {
       .catch((error) => {
         if (error.response) {
           console.error("서버 응답 에러:", error.response.data);
+          setError('서버 응답 에러: ' + error.response.data.message);
         } else if (error.request) {
           console.error("요청 에러:", error.request);
         } else {
@@ -196,6 +198,9 @@ const RegistComponent = ({ moveList }) => {
           </li>
         ))}
       </ul>
+      {error && ( 
+          <p className="text-red-500 mb-4">{error}</p>
+        )}
       <div className="flex justify-end mt-5">
         <button
           className="w-20 h-10 text-white bg-[#ae2d33] rounded-md mr-2"
